@@ -1,0 +1,748 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>우리 반 놀이터</title>
+  <meta name="description" content="초등학생을 위한 즐거운 우리 반 놀이터! 오늘의 미션, 안전 약속, 학습 요약을 한눈에 확인해요." />
+  <meta name="theme-color" content="#b7e0ff" />
+  <meta property="og:title" content="우리 반 놀이터" />
+  <meta property="og:description" content="함께 배우고 함께 놀며 성장하는 초등학생용 클래스 홈페이지." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1c1b1a;
+      --blue: #3aa0ff;
+      --sun: #ffd166;
+      --mint: #6ee7b7;
+      --coral: #ff7a59;
+      --paper: #fff5e1;
+      --sky: #b7e0ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Nanum Pen Script", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at top, var(--sky), #e9f7ff 45%, var(--paper) 100%);
+      overflow-x: hidden;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 10px 14px;
+      background: white;
+      color: var(--ink);
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-120%);
+      transition: transform 0.2s ease;
+      z-index: 10;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+      outline: 3px solid var(--coral);
+      outline-offset: 2px;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image: radial-gradient(#ffffff 1px, transparent 1px);
+      background-size: 40px 40px;
+      mix-blend-mode: screen;
+      animation: drift 18s linear infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(40px); }
+    }
+
+    header {
+      padding: 40px 20px 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: white;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      font-weight: 700;
+    }
+
+    h1 {
+      font-family: "Nanum Pen Script", cursive;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      margin: 18px 0 8px;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .today {
+      margin: 12px auto 0;
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0 32px;
+    }
+
+    .btn {
+      border: none;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--coral);
+      color: white;
+      box-shadow: 0 12px 0 #d86145;
+    }
+
+    .btn-secondary {
+      background: var(--mint);
+      color: #145a32;
+      box-shadow: 0 12px 0 #4fd19f;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .status {
+      margin: 6px auto 0;
+      font-size: 0.95rem;
+      color: #2b5b4a;
+      min-height: 1.2em;
+    }
+
+    .panel {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      margin: 30px 0;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.4rem;
+    }
+
+    .panel p {
+      margin: 0 0 16px;
+      color: #355;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 2px solid #d7e6f2;
+      font-size: 0.95rem;
+      background: #f8fbff;
+    }
+
+    input:focus {
+      outline: 3px solid #9ad0ff;
+      border-color: #9ad0ff;
+      background: white;
+    }
+
+    .btn-small {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      background: #ffe29a;
+      box-shadow: 0 8px 0 #f0c86a;
+    }
+
+    .auth-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .helper {
+      font-size: 0.9rem;
+      color: #486;
+      margin-top: 6px;
+    }
+
+    .logout {
+      background: #ffd6d0;
+      box-shadow: 0 8px 0 #f2a69d;
+    }
+
+    .admin-box {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 16px;
+      background: #f7fbff;
+      border: 2px dashed #9ad0ff;
+    }
+
+    .admin-box ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .admin-toggle {
+      margin-top: 10px;
+      background: #d8f0ff;
+      box-shadow: 0 8px 0 #b4dcf7;
+    }
+
+    .google {
+      background: #ffffff;
+      box-shadow: 0 8px 0 #d8d8d8;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+      min-height: 170px;
+      animation: pop 0.8s ease both;
+    }
+
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.2s; }
+    .card:nth-child(4) { animation-delay: 0.3s; }
+
+    @keyframes pop {
+      from { transform: translateY(20px) scale(0.98); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--sun);
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+
+    .mission {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      background: linear-gradient(120deg, #fff, #f4fbff);
+      border-radius: 24px;
+      padding: 24px;
+      margin: 30px 0;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+    }
+
+    .mission .note {
+      flex: 1 1 240px;
+      background: var(--paper);
+      border-radius: 18px;
+      padding: 18px;
+      border: 2px dashed var(--coral);
+    }
+
+    .mission ul {
+      padding-left: 18px;
+      margin: 8px 0 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 28px 12px;
+      color: #355;
+      font-size: 0.95rem;
+    }
+
+    .cloud {
+      position: absolute;
+      width: 180px;
+      height: 60px;
+      background: white;
+      border-radius: 999px;
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.06);
+      opacity: 0.9;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .cloud::after,
+    .cloud::before {
+      content: "";
+      position: absolute;
+      background: white;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      top: -40px;
+    }
+
+    .cloud::before {
+      left: 10px;
+    }
+
+    .cloud::after {
+      right: 20px;
+    }
+
+    .cloud.one { top: 120px; left: -40px; }
+    .cloud.two { top: 60px; right: -60px; animation-delay: 3s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 720px) {
+      header { padding-top: 70px; }
+      .badge { font-size: 0.9rem; }
+      .mission { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="cloud one" aria-hidden="true"></div>
+  <div class="cloud two" aria-hidden="true"></div>
+
+  <header>
+    <div class="badge">🎒 초등학교 6학년 우리 반</div>
+    <h1>우리 반 놀이터에 오신 걸 환영해요!</h1>
+    <p class="subtitle">6학년 친구들을 위한 따뜻한 교실 소식. 공부와 생활, 가정통신문을 한 번에 만나요.</p>
+    <p class="today" id="today" aria-live="polite">오늘 날짜 불러오는 중...</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" type="button">가정통신문 보기</button>
+      <button class="btn btn-secondary" type="button">우리 반 소식</button>
+      <button class="btn btn-secondary" type="button">오늘의 한 줄</button>
+    </div>
+    <p class="status" id="auth-status" aria-live="polite"></p>
+  </header>
+
+  <main id="main">
+    <section class="panel">
+      <h2>📮 가정통신문 받기</h2>
+      <p>가정통신문을 이메일로 받아보고 싶다면 아래에 정보를 적어 주세요.</p>
+      <form id="newsletter-form" class="form-grid">
+        <div>
+          <label for="parent-name">보호자 이름</label>
+          <input id="parent-name" name="parentName" type="text" placeholder="예: 김하나" required />
+        </div>
+        <div>
+          <label for="parent-email">이메일</label>
+          <input id="parent-email" name="parentEmail" type="email" placeholder="parent@example.com" required />
+        </div>
+        <div>
+          <label for="student-name">학생 이름</label>
+          <input id="student-name" name="studentName" type="text" placeholder="예: 홍길동" required />
+        </div>
+        <div class="auth-actions">
+          <button class="btn-small" type="submit">신청하기</button>
+          <span class="helper" id="newsletter-status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>🔐 회원가입 / 로그인</h2>
+      <p>우리 반 전용 게시판과 자료실을 이용하려면 가입 후 로그인해 주세요.</p>
+      <div class="form-grid">
+        <form id="signup-form">
+          <label for="signup-name">이름</label>
+          <input id="signup-name" name="name" type="text" placeholder="예: 윤지수" required />
+          <label for="signup-email">이메일</label>
+          <input id="signup-email" name="email" type="email" placeholder="student@example.com" required />
+          <label for="signup-class">반/번호</label>
+          <input id="signup-class" name="classInfo" type="text" placeholder="예: 6-2 / 15번" required />
+          <label for="signup-password">비밀번호</label>
+          <input id="signup-password" name="password" type="password" minlength="4" required />
+          <div class="auth-actions">
+            <button class="btn-small" type="submit">회원가입</button>
+          </div>
+          <p class="helper" id="signup-status" aria-live="polite"></p>
+        </form>
+        <form id="login-form">
+          <label for="login-email">아이디 / 이메일</label>
+          <input id="login-email" name="email" type="text" placeholder="admin 또는 student@example.com" required />
+          <label for="login-password">비밀번호</label>
+          <input id="login-password" name="password" type="password" required />
+          <div class="auth-actions">
+            <button class="btn-small" type="submit">로그인</button>
+            <button class="btn-small logout" type="button" id="logout" hidden>로그아웃</button>
+            <button class="btn-small google" type="button" id="google-login">구글로 로그인</button>
+          </div>
+          <p class="helper" id="login-status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="auth-actions">
+        <button class="btn-small admin-toggle" type="button" id="admin-toggle" hidden>관리자 탭 열기</button>
+      </div>
+      <div class="admin-box" id="admin-panel" hidden>
+        <strong>관리자 전용: 가입자 목록</strong>
+        <ul id="admin-users"></ul>
+      </div>
+    </section>
+
+    <section class="mission">
+      <div class="note">
+        <strong>🌟 오늘의 미션</strong>
+        <ul>
+          <li>우리 반 친구에게 칭찬 한 마디 해보기</li>
+          <li>오늘 배운 새로운 단어 1개 써보기</li>
+          <li>집에서 실천할 작은 약속 1가지 정하기</li>
+        </ul>
+      </div>
+      <div class="note">
+        <strong>🎒 준비물 체크</strong>
+        <ul>
+          <li>필통 속 연필과 지우개</li>
+          <li>물병과 손수건</li>
+          <li>기분 좋은 미소</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <span class="tag">놀이</span>
+        <h2>재미난 놀이 코너</h2>
+        <p>점심시간에 할 수 있는 안전한 게임 아이디어를 모아둔 곳이에요.</p>
+      </article>
+      <article class="card">
+        <span class="tag">학습</span>
+        <h2>오늘의 배움</h2>
+        <p>국어, 수학, 과학에서 배운 중요한 내용을 간단히 정리했어요.</p>
+      </article>
+      <article class="card">
+        <span class="tag">안전</span>
+        <h2>스마트 안전 약속</h2>
+        <p>인터넷에서 만난 사람과 개인정보를 나누지 않는 약속을 기억해요.</p>
+      </article>
+      <article class="card">
+        <span class="tag">소식</span>
+        <h2>우리 반 소식</h2>
+        <p>생일, 발표, 학급 행사처럼 중요한 소식을 알리는 게시판이에요.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    오늘도 반짝반짝! 우리 반 모두 멋진 하루 보내요 ✨
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup,
+      updateProfile,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDtwBdQaIibNjBbYLk3ZFRbEIo9xuXyVLg",
+      authDomain: "homepage-a2e2e.firebaseapp.com",
+      projectId: "homepage-a2e2e",
+      storageBucket: "homepage-a2e2e.firebasestorage.app",
+      messagingSenderId: "661009039224",
+      appId: "1:661009039224:web:89f3c2bcd338c6908f128d",
+      measurementId: "G-DCTX6SER44"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const googleProvider = new GoogleAuthProvider();
+
+    const todayEl = document.getElementById("today");
+    const now = new Date();
+    const format = new Intl.DateTimeFormat("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long"
+    });
+    todayEl.textContent = `오늘은 ${format.format(now)}이에요.`;
+
+    const usersKey = "classUsers";
+    const newsletterKey = "classNewsletter";
+    const adminSessionKey = "adminSession";
+
+    const authStatus = document.getElementById("auth-status");
+    const signupForm = document.getElementById("signup-form");
+    const loginForm = document.getElementById("login-form");
+    const logoutButton = document.getElementById("logout");
+    const googleLoginButton = document.getElementById("google-login");
+    const signupStatus = document.getElementById("signup-status");
+    const loginStatus = document.getElementById("login-status");
+    const adminPanel = document.getElementById("admin-panel");
+    const adminUsers = document.getElementById("admin-users");
+    const adminToggle = document.getElementById("admin-toggle");
+
+    const newsletterForm = document.getElementById("newsletter-form");
+    const newsletterStatus = document.getElementById("newsletter-status");
+
+    const loadList = (key) => JSON.parse(localStorage.getItem(key) || "[]");
+    const saveList = (key, data) => localStorage.setItem(key, JSON.stringify(data));
+
+    const upsertUserProfile = (profile) => {
+      const users = loadList(usersKey);
+      const exists = users.some((user) => user.email === profile.email);
+      if (!exists) {
+        users.push(profile);
+        saveList(usersKey, users);
+      }
+    };
+
+    const getEffectiveUser = (authUser) => {
+      const isAdminSession = localStorage.getItem(adminSessionKey) === "true";
+      if (isAdminSession) {
+        return { displayName: "관리자", email: "admin", role: "admin" };
+      }
+      return authUser;
+    };
+
+    const isAdminUser = (user) =>
+      Boolean(user && (user.role === "admin" || user.email === "admin"));
+
+    const renderAdminList = () => {
+      const users = loadList(usersKey);
+      adminUsers.innerHTML = users
+        .map((user) => `<li>${user.name} (${user.email}) - ${user.classInfo}</li>`)
+        .join("");
+    };
+
+    const updateAuthStatus = (user) => {
+      if (user) {
+        const displayName = user.displayName || user.email || "친구";
+        authStatus.textContent = `${displayName}님, 반갑습니다.`;
+        logoutButton.hidden = false;
+        if (isAdminUser(user)) {
+          adminToggle.hidden = false;
+          adminPanel.hidden = true;
+          adminToggle.textContent = "관리자 탭 열기";
+          renderAdminList();
+        } else {
+          adminPanel.hidden = true;
+          adminUsers.innerHTML = "";
+          adminToggle.hidden = true;
+        }
+      } else {
+        authStatus.textContent = "로그인하면 우리 반 게시판을 볼 수 있어요.";
+        logoutButton.hidden = true;
+        adminPanel.hidden = true;
+        adminUsers.innerHTML = "";
+        adminToggle.hidden = true;
+      }
+    };
+
+    signupForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      signupStatus.textContent = "";
+      const formData = new FormData(signupForm);
+      const name = formData.get("name").trim();
+      const email = formData.get("email").trim().toLowerCase();
+      const classInfo = formData.get("classInfo").trim();
+      const password = formData.get("password");
+
+      try {
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(result.user, { displayName: name });
+        upsertUserProfile({
+          name,
+          email,
+          classInfo,
+          createdAt: new Date().toISOString()
+        });
+        signupStatus.textContent = "가입 완료! 자동으로 로그인했어요.";
+        signupForm.reset();
+      } catch (error) {
+        signupStatus.textContent = "가입 실패! 이메일 또는 비밀번호를 확인해 주세요.";
+        console.error(error);
+      }
+    });
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      loginStatus.textContent = "";
+      const formData = new FormData(loginForm);
+      const email = formData.get("email").trim().toLowerCase();
+      const password = formData.get("password");
+      if (email === "admin" && password === "1234") {
+        localStorage.setItem(adminSessionKey, "true");
+        loginStatus.textContent = "관리자 로그인 성공!";
+        loginForm.reset();
+        updateAuthStatus(getEffectiveUser(null));
+        return;
+      }
+      localStorage.removeItem(adminSessionKey);
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        loginStatus.textContent = "로그인 성공!";
+        loginForm.reset();
+      } catch (error) {
+        loginStatus.textContent = "이메일 또는 비밀번호가 달라요.";
+        console.error(error);
+      }
+    });
+
+    googleLoginButton.addEventListener("click", async () => {
+      loginStatus.textContent = "";
+      localStorage.removeItem(adminSessionKey);
+      try {
+        const result = await signInWithPopup(auth, googleProvider);
+        const user = result.user;
+        if (user && user.email) {
+          upsertUserProfile({
+            name: user.displayName || "구글 사용자",
+            email: user.email,
+            classInfo: "Google 로그인",
+            createdAt: new Date().toISOString()
+          });
+        }
+        loginStatus.textContent = "구글 로그인 성공!";
+      } catch (error) {
+        loginStatus.textContent = "구글 로그인에 실패했어요.";
+        console.error(error);
+      }
+    });
+
+    logoutButton.addEventListener("click", async () => {
+      try {
+        localStorage.removeItem(adminSessionKey);
+        await signOut(auth);
+        loginStatus.textContent = "로그아웃했어요.";
+      } catch (error) {
+        console.error(error);
+      }
+    });
+
+    adminToggle.addEventListener("click", () => {
+      const user = auth.currentUser;
+      if (!isAdminUser(user)) {
+        adminPanel.hidden = true;
+        adminToggle.hidden = true;
+        loginStatus.textContent = "관리자만 볼 수 있어요.";
+        return;
+      }
+      const isOpen = !adminPanel.hidden;
+      adminPanel.hidden = isOpen;
+      adminToggle.textContent = isOpen ? "관리자 탭 열기" : "관리자 탭 닫기";
+    });
+
+    newsletterForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      newsletterStatus.textContent = "";
+      const formData = new FormData(newsletterForm);
+      const entry = {
+        parentName: formData.get("parentName").trim(),
+        parentEmail: formData.get("parentEmail").trim().toLowerCase(),
+        studentName: formData.get("studentName").trim(),
+        createdAt: new Date().toISOString()
+      };
+      const list = loadList(newsletterKey);
+      list.push(entry);
+      saveList(newsletterKey, list);
+      newsletterStatus.textContent = "신청 완료! 곧 안내 드릴게요.";
+      newsletterForm.reset();
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        localStorage.removeItem(adminSessionKey);
+      }
+      const effectiveUser = getEffectiveUser(user);
+      updateAuthStatus(effectiveUser);
+      if (effectiveUser && isAdminUser(effectiveUser)) {
+        renderAdminList();
+      }
+    });
+
+    updateAuthStatus(getEffectiveUser(auth.currentUser));
+  </script>
+</body>
+</html>
