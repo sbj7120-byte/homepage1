@@ -1,5 +1,6 @@
 ﻿<!doctype html>
 <html lang="ko">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,68 +12,85 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;700&display=swap"
+    rel="stylesheet" />
   <style>
     :root {
-      --ink: #1c1b1a;
-      --blue: #3aa0ff;
-      --sun: #ffd166;
-      --mint: #6ee7b7;
-      --coral: #ff7a59;
-      --paper: #fff5e1;
-      --sky: #b7e0ff;
+      --indigo: #4f46e5;
+      --indigo-soft: #818cf8;
+      --lime: #84cc16;
+      --orange: #fb923c;
+      --ink: #0f172a;
+      --glass: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.3);
+      --bg: #f8fafc;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: "Noto Sans KR", "Nanum Pen Script", sans-serif;
+      font-family: "Noto Sans KR", sans-serif;
       color: var(--ink);
-      background: radial-gradient(circle at top, var(--sky), #e9f7ff 45%, var(--paper) 100%);
+      background: var(--bg);
+      background-image:
+        radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+      background-attachment: fixed;
+      min-height: 100vh;
       overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Ambient Background Elements */
+    .blob {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: var(--indigo);
+      filter: blur(80px);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0.15;
+      animation: move 20s infinite alternate;
+    }
+
+    @keyframes move {
+      from {
+        transform: translate(-10%, -10%);
+      }
+
+      to {
+        transform: translate(20%, 20%);
+      }
     }
 
     .skip-link {
       position: absolute;
       top: 10px;
       left: 10px;
-      padding: 10px 14px;
-      background: white;
-      color: var(--ink);
-      border-radius: 10px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-      transform: translateY(-120%);
-      transition: transform 0.2s ease;
-      z-index: 10;
+      padding: 10px 20px;
+      background: var(--indigo);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      transform: translateY(-150%);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 100;
+      font-weight: 700;
     }
 
     .skip-link:focus {
       transform: translateY(0);
-      outline: 3px solid var(--coral);
-      outline-offset: 2px;
-    }
-
-    .stars {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.18;
-      background-image: radial-gradient(#ffffff 1px, transparent 1px);
-      background-size: 40px 40px;
-      mix-blend-mode: screen;
-      animation: drift 18s linear infinite;
-    }
-
-    @keyframes drift {
-      from { transform: translateY(0); }
-      to { transform: translateY(40px); }
     }
 
     header {
-      padding: 40px 20px 24px;
+      padding: 80px 20px 40px;
       text-align: center;
       position: relative;
     }
@@ -83,432 +101,502 @@
       gap: 8px;
       padding: 8px 16px;
       border-radius: 999px;
-      background: white;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--indigo);
+      margin-bottom: 24px;
     }
 
     h1 {
-      font-family: "Nanum Pen Script", cursive;
-      font-size: clamp(2.4rem, 6vw, 4rem);
-      margin: 18px 0 8px;
-      letter-spacing: 1px;
+      font-family: "Outfit", sans-serif;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+      line-height: 1.1;
+      text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
     .subtitle {
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto;
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto 32px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 400;
+    }
+
+    .today-container {
+      margin-bottom: 40px;
     }
 
     .today {
-      margin: 12px auto 0;
       display: inline-block;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.85);
+      padding: 10px 24px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--indigo), var(--indigo-soft));
+      color: white;
       font-weight: 700;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+      font-size: 1.1rem;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 12px;
-      margin: 20px 0 32px;
+      gap: 16px;
+      margin-top: 20px;
     }
 
     .btn {
       border: none;
-      padding: 12px 18px;
-      border-radius: 14px;
-      font-size: 1rem;
+      padding: 16px 32px;
+      border-radius: 18px;
+      font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-family: "Outfit", sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-primary {
-      background: var(--coral);
+      background: var(--indigo);
       color: white;
-      box-shadow: 0 12px 0 #d86145;
+      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4);
     }
 
     .btn-secondary {
-      background: var(--mint);
-      color: #145a32;
-      box-shadow: 0 12px 0 #4fd19f;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--ink);
+      border: 1px solid var(--glass-border);
     }
 
     .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 0 rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:active {
+      transform: translateY(0);
     }
 
     .status {
-      margin: 6px auto 0;
-      font-size: 0.95rem;
-      color: #2b5b4a;
-      min-height: 1.2em;
+      margin-top: 24px;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
     }
 
     .panel {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-      margin: 30px 0;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
     }
 
     .panel h2 {
-      margin: 0 0 10px;
-      font-size: 1.4rem;
+      font-family: "Outfit", sans-serif;
+      margin-bottom: 16px;
+      font-size: 1.8rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .panel p {
-      margin: 0 0 16px;
-      color: #355;
+      margin-bottom: 30px;
+      color: #475569;
+      font-size: 1.1rem;
     }
 
     .form-grid {
       display: grid;
-      gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     label {
-      display: block;
       font-weight: 700;
-      margin-bottom: 6px;
+      font-size: 0.95rem;
+      color: var(--ink);
     }
 
     input {
       width: 100%;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 2px solid #d7e6f2;
-      font-size: 0.95rem;
-      background: #f8fbff;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 2px solid #e2e8f0;
+      font-size: 1rem;
+      background: white;
+      transition: all 0.2s ease;
+      font-family: inherit;
     }
 
     input:focus {
-      outline: 3px solid #9ad0ff;
-      border-color: #9ad0ff;
-      background: white;
+      outline: none;
+      border-color: var(--indigo);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
     }
 
     .btn-small {
-      padding: 10px 14px;
-      border-radius: 12px;
+      padding: 12px 24px;
+      border-radius: 14px;
       font-weight: 700;
       border: none;
       cursor: pointer;
-      background: #ffe29a;
-      box-shadow: 0 8px 0 #f0c86a;
+      font-family: "Outfit", sans-serif;
+      transition: all 0.2s ease;
+      background: var(--indigo);
+      color: white;
+    }
+
+    .btn-small:hover {
+      background: #4338ca;
+      transform: translateY(-2px);
     }
 
     .auth-actions {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
       align-items: center;
-      margin-top: 10px;
+      margin-top: 20px;
     }
 
-    .helper {
-      font-size: 0.9rem;
-      color: #486;
-      margin-top: 6px;
+    .google-btn {
+      background: white;
+      color: #1f2937;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .logout {
-      background: #ffd6d0;
-      box-shadow: 0 8px 0 #f2a69d;
-    }
-
-    .admin-box {
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: 16px;
-      background: #f7fbff;
-      border: 2px dashed #9ad0ff;
-    }
-
-    .admin-box ul {
-      margin: 8px 0 0;
-      padding-left: 18px;
+    .logout-btn {
+      background: #fee2e2;
+      color: #dc2626;
     }
 
     .admin-toggle {
-      margin-top: 10px;
-      background: #d8f0ff;
-      box-shadow: 0 8px 0 #b4dcf7;
+      background: #ecfdf5;
+      color: #059669;
     }
 
-    .google {
-      background: #ffffff;
-      box-shadow: 0 8px 0 #d8d8d8;
+    .admin-box {
+      margin-top: 30px;
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(79, 70, 229, 0.05);
+      border: 2px dashed var(--indigo-soft);
     }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px 80px;
+    .mission-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .note-card {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .note-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: var(--indigo);
+    }
+
+    .note-card.lime::before {
+      background: var(--lime);
+    }
+
+    .note-card.orange::before {
+      background: var(--orange);
+    }
+
+    .note-card strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      font-family: "Outfit", sans-serif;
+    }
+
+    .note-card ul {
+      list-style: none;
+    }
+
+    .note-card li {
+      margin-bottom: 12px;
+      padding-left: 28px;
+      position: relative;
+      font-size: 1.05rem;
+    }
+
+    .note-card li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--indigo);
+      font-weight: 900;
     }
 
     .grid {
       display: grid;
-      gap: 20px;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     }
 
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 32px;
+      border-radius: 28px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
-      overflow: hidden;
-      min-height: 170px;
-      animation: pop 0.8s ease both;
+      border: 1px solid #f1f5f9;
+      cursor: pointer;
     }
 
-    .card:nth-child(2) { animation-delay: 0.1s; }
-    .card:nth-child(3) { animation-delay: 0.2s; }
-    .card:nth-child(4) { animation-delay: 0.3s; }
-
-    @keyframes pop {
-      from { transform: translateY(20px) scale(0.98); opacity: 0; }
-      to { transform: translateY(0) scale(1); opacity: 1; }
-    }
-
-    .card h2 {
-      margin: 0 0 8px;
-      font-size: 1.2rem;
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      border-color: var(--indigo-soft);
     }
 
     .tag {
       display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--sun);
+      padding: 6px 14px;
+      border-radius: 12px;
+      background: rgba(79, 70, 229, 0.1);
+      color: var(--indigo);
+      font-weight: 700;
       font-size: 0.85rem;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .mission {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      background: linear-gradient(120deg, #fff, #f4fbff);
-      border-radius: 24px;
-      padding: 24px;
-      margin: 30px 0;
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+    .card h2 {
+      font-family: "Outfit", sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 12px;
     }
 
-    .mission .note {
-      flex: 1 1 240px;
-      background: var(--paper);
-      border-radius: 18px;
-      padding: 18px;
-      border: 2px dashed var(--coral);
-    }
-
-    .mission ul {
-      padding-left: 18px;
-      margin: 8px 0 0;
+    .card p {
+      color: #64748b;
+      font-size: 1rem;
     }
 
     .footer {
       text-align: center;
-      padding: 28px 12px;
-      color: #355;
-      font-size: 0.95rem;
+      padding: 60px 20px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.1rem;
+      font-weight: 500;
     }
 
-    .cloud {
-      position: absolute;
-      width: 180px;
-      height: 60px;
-      background: white;
-      border-radius: 999px;
-      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.06);
-      opacity: 0.9;
-      animation: float 10s ease-in-out infinite;
-    }
-
-    .cloud::after,
-    .cloud::before {
-      content: "";
-      position: absolute;
-      background: white;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      top: -40px;
-    }
-
-    .cloud::before {
-      left: 10px;
-    }
-
-    .cloud::after {
-      right: 20px;
-    }
-
-    .cloud.one { top: 120px; left: -40px; }
-    .cloud.two { top: 60px; right: -60px; animation-delay: 3s; }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
+    @media (max-width: 768px) {
+      header {
+        padding-top: 60px;
       }
-    }
 
-    @media (max-width: 720px) {
-      header { padding-top: 70px; }
-      .badge { font-size: 0.9rem; }
-      .mission { padding: 18px; }
+      h1 {
+        font-size: 3rem;
+      }
+
+      .panel {
+        padding: 30px 20px;
+      }
+
+      .card {
+        padding: 24px;
+      }
     }
   </style>
 </head>
+
 <body>
   <a class="skip-link" href="#main">본문 바로가기</a>
-  <div class="stars" aria-hidden="true"></div>
-  <div class="cloud one" aria-hidden="true"></div>
-  <div class="cloud two" aria-hidden="true"></div>
+  <div class="blob"></div>
+  <div class="blob" style="top: 20%; right: 0; background: var(--orange); animation-delay: -5s;"></div>
+  <div class="blob" style="bottom: 0; left: 10%; background: var(--lime); animation-delay: -10s;"></div>
 
   <header>
-    <div class="badge">🎒 초등학교 6학년 우리 반</div>
-    <h1>우리 반 놀이터에 오신 걸 환영해요!</h1>
-    <p class="subtitle">6학년 친구들을 위한 따뜻한 교실 소식. 공부와 생활, 가정통신문을 한 번에 만나요.</p>
-    <p class="today" id="today" aria-live="polite">오늘 날짜 불러오는 중...</p>
+    <div class="badge">🎒 6학년 우리 반 아카데미</div>
+    <h1>우리 반 놀이터</h1>
+    <p class="subtitle">더 넓은 세상으로 나가는 6학년 친구들을 위한<br>스마트한 교실 소식함</p>
+    <div class="today-container">
+      <p class="today" id="today" aria-live="polite">오늘 날짜 불러오는 중...</p>
+    </div>
     <div class="hero-actions">
-      <button class="btn btn-primary" type="button">가정통신문 보기</button>
-      <button class="btn btn-secondary" type="button">우리 반 소식</button>
-      <button class="btn btn-secondary" type="button">오늘의 한 줄</button>
+      <button class="btn btn-primary" type="button">📩 가정통신문</button>
+      <button class="btn btn-secondary" type="button">📢 우리 반 소식</button>
+      <button class="btn btn-secondary" type="button">✍️ 오늘의 한 줄</button>
     </div>
     <p class="status" id="auth-status" aria-live="polite"></p>
   </header>
 
   <main id="main">
     <section class="panel">
-      <h2>📮 가정통신문 받기</h2>
-      <p>가정통신문을 이메일로 받아보고 싶다면 아래에 정보를 적어 주세요.</p>
+      <h2>📮 스마트 가정통신문 신청</h2>
+      <p>우리 반의 따끈따끈한 소식을 이메일로 받아보세요.</p>
       <form id="newsletter-form" class="form-grid">
-        <div>
-          <label for="parent-name">보호자 이름</label>
-          <input id="parent-name" name="parentName" type="text" placeholder="예: 김하나" required />
+        <div class="input-group">
+          <label for="parent-name">보호자 성함</label>
+          <input id="parent-name" name="parentName" type="text" placeholder="성함을 입력해주세요" required />
         </div>
-        <div>
-          <label for="parent-email">이메일</label>
-          <input id="parent-email" name="parentEmail" type="email" placeholder="parent@example.com" required />
+        <div class="input-group">
+          <label for="parent-email">이메일 주소</label>
+          <input id="parent-email" name="parentEmail" type="email" placeholder="email@example.com" required />
         </div>
-        <div>
+        <div class="input-group">
           <label for="student-name">학생 이름</label>
-          <input id="student-name" name="studentName" type="text" placeholder="예: 홍길동" required />
+          <input id="student-name" name="studentName" type="text" placeholder="학생 이름을 입력해주세요" required />
         </div>
-        <div class="auth-actions">
-          <button class="btn-small" type="submit">신청하기</button>
-          <span class="helper" id="newsletter-status" aria-live="polite"></span>
+        <div class="auth-actions" style="grid-column: 1 / -1">
+          <button class="btn-small" type="submit">지금 구독하기</button>
+          <span class="helper" id="newsletter-status" aria-live="polite"
+            style="color: var(--indigo); font-weight: 700;"></span>
         </div>
       </form>
     </section>
 
     <section class="panel">
-      <h2>🔐 회원가입 / 로그인</h2>
-      <p>우리 반 전용 게시판과 자료실을 이용하려면 가입 후 로그인해 주세요.</p>
+      <h2>🔐 학생 전용 라운지</h2>
+      <p>가입 후 우리 반만의 특별한 자료실과 게시판을 이용해보세요.</p>
       <div class="form-grid">
         <form id="signup-form">
-          <label for="signup-name">이름</label>
-          <input id="signup-name" name="name" type="text" placeholder="예: 윤지수" required />
-          <label for="signup-email">이메일</label>
-          <input id="signup-email" name="email" type="email" placeholder="student@example.com" required />
-          <label for="signup-class">반/번호</label>
-          <input id="signup-class" name="classInfo" type="text" placeholder="예: 6-2 / 15번" required />
-          <label for="signup-password">비밀번호</label>
-          <input id="signup-password" name="password" type="password" minlength="4" required />
+          <div class="input-group" style="margin-bottom: 12px">
+            <label for="signup-name">이름</label>
+            <input id="signup-name" name="name" type="text" placeholder="이름" required />
+          </div>
+          <div class="input-group" style="margin-bottom: 12px">
+            <label for="signup-email">이메일</label>
+            <input id="signup-email" name="email" type="email" placeholder="email@example.com" required />
+          </div>
+          <div class="input-group" style="margin-bottom: 12px">
+            <label for="signup-class">학급/번호</label>
+            <input id="signup-class" name="classInfo" type="text" placeholder="예: 6-1 / 1번" required />
+          </div>
+          <div class="input-group" style="margin-bottom: 16px">
+            <label for="signup-password">비밀번호</label>
+            <input id="signup-password" name="password" type="password" minlength="4" required />
+          </div>
           <div class="auth-actions">
             <button class="btn-small" type="submit">회원가입</button>
           </div>
           <p class="helper" id="signup-status" aria-live="polite"></p>
         </form>
         <form id="login-form">
-          <label for="login-email">아이디 / 이메일</label>
-          <input id="login-email" name="email" type="text" placeholder="admin 또는 student@example.com" required />
-          <label for="login-password">비밀번호</label>
-          <input id="login-password" name="password" type="password" required />
+          <div class="input-group" style="margin-bottom: 12px">
+            <label for="login-email">아이디/이메일</label>
+            <input id="login-email" name="email" type="text" placeholder="admin 또는 이메일" required />
+          </div>
+          <div class="input-group" style="margin-bottom: 16px">
+            <label for="login-password">비밀번호</label>
+            <input id="login-password" name="password" type="password" required />
+          </div>
           <div class="auth-actions">
             <button class="btn-small" type="submit">로그인</button>
-            <button class="btn-small logout" type="button" id="logout" hidden>로그아웃</button>
-            <button class="btn-small google" type="button" id="google-login">구글로 로그인</button>
+            <button class="btn-small logout-btn" type="button" id="logout" hidden>로그아웃</button>
+            <button class="btn-small google-btn" type="button" id="google-login">
+              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt=""> 구글 로그인
+            </button>
           </div>
           <p class="helper" id="login-status" aria-live="polite"></p>
         </form>
       </div>
       <div class="auth-actions">
-        <button class="btn-small admin-toggle" type="button" id="admin-toggle" hidden>관리자 탭 열기</button>
+        <button class="btn-small admin-toggle" type="button" id="admin-toggle" hidden>⚙️ 관리 모드 전환</button>
       </div>
       <div class="admin-box" id="admin-panel" hidden>
-        <strong>관리자 전용: 가입자 목록</strong>
-        <ul id="admin-users"></ul>
+        <strong style="display: block; margin-bottom: 12px">👥 가입 학생 명단</strong>
+        <ul id="admin-users" style="list-style: none;"></ul>
       </div>
     </section>
 
-    <section class="mission">
-      <div class="note">
+    <section class="mission-container">
+      <div class="note-card">
         <strong>🌟 오늘의 미션</strong>
         <ul>
-          <li>우리 반 친구에게 칭찬 한 마디 해보기</li>
-          <li>오늘 배운 새로운 단어 1개 써보기</li>
-          <li>집에서 실천할 작은 약속 1가지 정하기</li>
+          <li>우리 반 친구에게 칭찬 한 마디 하기</li>
+          <li>오늘 배운 새로운 키워드 정리하기</li>
+          <li>집에서 실천할 작은 약속 정하기</li>
         </ul>
       </div>
-      <div class="note">
+      <div class="note-card lime">
         <strong>🎒 준비물 체크</strong>
         <ul>
-          <li>필통 속 연필과 지우개</li>
-          <li>물병과 손수건</li>
-          <li>기분 좋은 미소</li>
+          <li>필통 속 연필과 지우개 확인</li>
+          <li>개인용 물병 지참하기</li>
+          <li>자신감 있는 기분 좋은 태도</li>
         </ul>
       </div>
     </section>
 
-    <section class="grid">
+    <div class="grid">
       <article class="card">
-        <span class="tag">놀이</span>
+        <span class="tag">PLAY</span>
         <h2>재미난 놀이 코너</h2>
-        <p>점심시간에 할 수 있는 안전한 게임 아이디어를 모아둔 곳이에요.</p>
+        <p>점심시간에 친구들과 함께 즐기는 안전하고 재미있는 게임들을 만나보세요.</p>
       </article>
       <article class="card">
-        <span class="tag">학습</span>
-        <h2>오늘의 배움</h2>
-        <p>국어, 수학, 과학에서 배운 중요한 내용을 간단히 정리했어요.</p>
+        <span class="tag">LEARN</span>
+        <h2>오늘의 배움 노트</h2>
+        <p>국어, 수학, 과학 등 오늘 하루 핵심 개념들을 한눈에 정리했습니다.</p>
       </article>
       <article class="card">
-        <span class="tag">안전</span>
-        <h2>스마트 안전 약속</h2>
-        <p>인터넷에서 만난 사람과 개인정보를 나누지 않는 약속을 기억해요.</p>
+        <span class="tag">SAFE</span>
+        <h2>디지털 안전 약속</h2>
+        <p>인터넷 예절과 개인정보 보호를 위한 우리들만의 약속을 꼭 기억해주세요.</p>
       </article>
       <article class="card">
-        <span class="tag">소식</span>
-        <h2>우리 반 소식</h2>
-        <p>생일, 발표, 학급 행사처럼 중요한 소식을 알리는 게시판이에요.</p>
+        <span class="tag">NEWS</span>
+        <h2>우리 반 매거진</h2>
+        <p>생일 파티, 학급 행사, 공지사항 등 따끈따끈한 정보가 가득합니다.</p>
       </article>
-    </section>
+    </div>
   </main>
 
   <footer class="footer">
-    오늘도 반짝반짝! 우리 반 모두 멋진 하루 보내요 ✨
+    © 2026 우리 반 놀이터 · 최고의 6학년을 위해 🚀
   </footer>
 
   <script type="module">
@@ -525,13 +613,13 @@
     } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyDtwBdQaIibNjBbYLk3ZFRbEIo9xuXyVLg",
-      authDomain: "homepage-a2e2e.firebaseapp.com",
-      projectId: "homepage-a2e2e",
-      storageBucket: "homepage-a2e2e.firebasestorage.app",
-      messagingSenderId: "661009039224",
-      appId: "1:661009039224:web:89f3c2bcd338c6908f128d",
-      measurementId: "G-DCTX6SER44"
+      apiKey: "AIzaSyCX0baR1xr4XoLs6O3WPhqVbwUedJQWs6w",
+      authDomain: "homepage1-db02c.firebaseapp.com",
+      projectId: "homepage1-db02c",
+      storageBucket: "homepage1-db02c.firebasestorage.app",
+      messagingSenderId: "333721415556",
+      appId: "1:333721415556:web:c9cea0da69ea704decf7d1",
+      measurementId: "G-VWH8S5EX1D"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -745,4 +833,5 @@
     updateAuthStatus(getEffectiveUser(auth.currentUser));
   </script>
 </body>
+
 </html>
